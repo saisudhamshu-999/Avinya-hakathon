@@ -1,0 +1,29 @@
+{
+  "interactions": [
+    {
+      "pair": ["metformin", "alcohol"],
+      "severity": "Major",
+      "mechanism": "Alcohol potentiates metformin's effect on lactate metabolism, elevating risk of fatal lactic acidosis."
+    },
+    {
+      "pair": ["atorvastatin", "gemfibrozil"],
+      "severity": "Contraindicated",
+      "mechanism": "Significantly increases statin plasma concentrations, raising risk of severe rhabdomyolysis."
+    },
+    {
+      "pair": ["lisinopril", "spironolactone"],
+      "severity": "Moderate to Major",
+      "mechanism": "Additive hyperkalemic effect; frequent serum potassium monitoring required."
+    },
+    {
+      "pair": ["lisinopril", "ibuprofen"],
+      "severity": "Moderate",
+      "mechanism": "NSAIDs decrease antihypertensive efficacy of ACE inhibitors and increase acute nephrotoxicity risk."
+    },
+    {
+      "pair": ["levothyroxine", "calcium"],
+      "severity": "Moderate",
+      "mechanism": "Calcium salts bind levothyroxine in gastrointestinal tract, reducing bioavailability. Separate by at least 4 hours."
+    }
+  ]
+}

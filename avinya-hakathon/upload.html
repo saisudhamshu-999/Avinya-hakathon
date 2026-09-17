@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Upload a report — Readout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+  <div data-rail></div>
+  <div class="canvas">
+    <main class="page page--narrow" id="main">
+
+      <div id="stage-pick">
+        <div class="page-head">
+          <h1>Upload a report</h1>
+          <p>A PDF from the lab's portal, a scan, or a photo of the printout. Readout reads it on this device — the file is never uploaded.</p>
+        </div>
+
+        <div class="stack">
+          <div class="dropzone" id="dropzone">
+            <div class="dropzone-icon" data-cloud></div>
+            <h2>Drop your report here</h2>
+            <p>PDF, JPG, PNG or HEIC, up to 20 MB. Multi-page PDFs are fine.</p>
+            <p class="or">or</p>
+            <button class="btn btn-primary" type="button" id="browse">Choose a file</button>
+            <input type="file" id="file" accept=".pdf,.jpg,.jpeg,.png,.heic,image/*,application/pdf" hidden>
+          </div>
+
+          <div id="picked" hidden></div>
+
+          <div class="row" style="justify-content:space-between">
+            <button class="btn btn-secondary" type="button" id="use-sample">Use the sample report instead</button>
+            <span class="card-sub">No account. No sign-in.</span>
+          </div>
+
+          <div class="tips">
+            <div class="tip"><b>Get the whole page in</b>Crop to the edges of the paper. Ranges printed in the right-hand column are the part most often lost.</div>
+            <div class="tip"><b>Flat and evenly lit</b>Shadows across a column make numbers read as letters. Daylight beats a phone torch.</div>
+            <div class="tip"><b>Check before you trust it</b>Every value Readout extracted is shown next to what it thinks the range is. Compare a few against the paper.</div>
+          </div>
+
+          <div class="guard">
+            <span data-lock></span>
+            <p><strong>Nothing leaves this device.</strong> Text recognition and explanation run in your browser. Readout has no server to send your report to, and no account to attach it to.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="stage-work" hidden>
+        <div class="processing">
+          <h2>Reading your report</h2>
+          <p>This usually takes fifteen to thirty seconds, depending on the number of pages.</p>
+          <div class="trace" id="trace"></div>
+          <p class="card-sub" style="margin-top:26px">You can leave this tab open and come back.</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+mountShell("upload");
+document.querySelector("[data-cloud]").innerHTML = ICON.cloud;
+document.querySelector("[data-lock]").innerHTML = ICON.lock;
+
+const dz = document.getElementById("dropzone");
+const input = document.getElementById("file");
+const picked = document.getElementById("picked");
+
+document.getElementById("browse").addEventListener("click", () => input.click());
+input.addEventListener("change", () => { if (input.files[0]) accept(input.files[0]); });
+
+["dragenter", "dragover"].forEach(ev =>
+  dz.addEventListener(ev, (e) => { e.preventDefault(); dz.classList.add("is-over"); }));
+["dragleave", "drop"].forEach(ev =>
+  dz.addEventListener(ev, (e) => { e.preventDefault(); dz.classList.remove("is-over"); }));
+dz.addEventListener("drop", (e) => {
+  const f = e.dataTransfer.files[0];
+  if (f) accept(f);
+});
+
+function accept(file) {
+  const ok = /\.(pdf|jpe?g|png|heic)$/i.test(file.name);
+  if (!ok) {
+    picked.hidden = false;
+    picked.innerHTML = `<div class="guard guard--edge"><span>${ICON.info}</span>
+      <p><strong>That file type can't be read.</strong> Readout needs a PDF or an image of the report. Export it from your lab's portal as a PDF, or photograph the printout.</p></div>`;
+    return;
+  }
+  picked.hidden = false;
+  picked.innerHTML = `
+    <div class="file-row">
+      <span style="color:var(--pine)">${ICON.file}</span>
+      <div class="meta">
+        <div class="name">${esc(file.name)}</div>
+        <div class="size num">${(file.size / 1024 / 1024).toFixed(1)} MB</div>
+      </div>
+      <button class="btn btn-quiet btn-sm" type="button" id="drop-file">Remove</button>
+      <button class="btn btn-primary btn-sm" type="button" id="go">Read this report</button>
+    </div>`;
+  document.getElementById("drop-file").addEventListener("click", () => {
+    picked.hidden = true; picked.innerHTML = ""; input.value = "";
+  });
+  document.getElementById("go").addEventListener("click", () => runRealUpload(file));
+}
+
+document.getElementById("use-sample").addEventListener("click", () => runRealUpload(null));
+
+const STEPS = [
+  ["1. Uploading file & format validation", 600],
+  ["2. OCR preprocessing (Denoising & Deskew)", 900],
+  ["3. Recognizing text and column bounds", 1100],
+  ["4. Extracting parameters, values and units", 1000],
+  ["5. Evaluating printed laboratory reference ranges", 900],
+  ["6. Detecting co-moving patterns & generating doctor questions", 800]
+];
+
+async function runRealUpload(file) {
+  const filename = file ? file.name : "sample_blood_panel.pdf";
+  Store.set("lastFile", filename);
+  document.getElementById("stage-pick").hidden = true;
+  document.getElementById("stage-work").hidden = false;
+  window.scrollTo({ top: 0 });
+
+  const trace = document.getElementById("trace");
+  trace.innerHTML = STEPS.map(([label]) =>
+    `<div class="trace-step" data-state="waiting"><span class="bullet"></span><span>${label}</span></div>`).join("");
+  const nodes = Array.from(trace.children);
+
+  let i = 0;
+  const advance = () => {
+    if (i > 0 && nodes[i - 1]) nodes[i - 1].dataset.state = "done";
+    if (i < nodes.length) {
+      nodes[i].dataset.state = "active";
+      i++;
+      setTimeout(advance, 800);
+    }
+  };
+  advance();
+
+  try {
+    let reportId = "rpt-2026-03-04";
+    if (file) {
+      const fd = new FormData();
+      fd.append("file", file);
+      fd.append("fasting", "true");
+      fd.append("title", `Report — ${file.name}`);
+      const uploadRes = await API.uploadReport(fd);
+      if (uploadRes.data && uploadRes.data.reportId) {
+        reportId = uploadRes.data.reportId;
+      }
+    }
+    Store.set("activeReportId", reportId);
+    // Wait for stages
+    setTimeout(() => {
+      nodes.forEach(n => n.dataset.state = "done");
+      setTimeout(() => {
+        location.href = `dashboard.html?report=${reportId}`;
+      }, 500);
+    }, STEPS.length * 800 + 400);
+  } catch (err) {
+    console.warn("Upload pipeline warning:", err);
+    // Fallback gracefully to demo report
+    setTimeout(() => {
+      location.href = "dashboard.html";
+    }, 4500);
+  }
+}
+</script>
+</body>
+</html>

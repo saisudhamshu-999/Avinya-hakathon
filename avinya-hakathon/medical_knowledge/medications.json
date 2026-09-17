@@ -1,0 +1,42 @@
+{
+  "metformin": {
+    "name": "Metformin",
+    "drug_class": "Biguanide antihyperglycemic agent",
+    "general_uses": "First-line pharmacotherapy for type 2 diabetes mellitus and glycemic management alongside medical nutrition therapy.",
+    "warnings": "Risk of lactic acidosis (rare but severe); withhold prior to iodinated radiocontrast procedures.",
+    "contraindications": ["Severe renal impairment (eGFR < 30 mL/min/1.73m²)", "Acute metabolic acidosis", "Severe hepatic impairment"],
+    "common_interactions": ["Alcohol", "Cimetidine", "Iodinated contrast media", "Carbonic anhydrase inhibitors"],
+    "monitoring_considerations": "Check baseline and periodic eGFR, serum creatinine, and annual vitamin B12 levels.",
+    "reference_dosage": "Adult initial reference: 500 mg orally twice daily with meals or 850 mg once daily. Titrate by 500 mg weekly up to maximum 2000-2550 mg daily. Requires formal prescriber evaluation."
+  },
+  "atorvastatin": {
+    "name": "Atorvastatin",
+    "drug_class": "HMG-CoA reductase inhibitor (Statin)",
+    "general_uses": "Reduction of low-density lipoprotein cholesterol (LDL-C), triglycerides, and prevention of atherosclerotic cardiovascular disease.",
+    "warnings": "Myopathy, rhabdomyolysis, hepatic transaminase elevations, increased blood glucose.",
+    "contraindications": ["Active liver disease", "Unexplained persistent liver enzyme elevations", "Pregnancy", "Lactation"],
+    "common_interactions": ["Strong CYP3A4 inhibitors (clarithromycin, itraconazole)", "Cyclosporine", "Gemfibrozil", "Grapefruit juice"],
+    "monitoring_considerations": "Baseline lipid panel, ALT/AST, and creatine kinase if unexplained muscle pain or weakness occurs.",
+    "reference_dosage": "Adult initial reference: 10 mg to 20 mg orally once daily. High-intensity therapy: 40 mg to 80 mg daily based on ASCVD risk calculation. Requires formal prescriber evaluation."
+  },
+  "lisinopril": {
+    "name": "Lisinopril",
+    "drug_class": "Angiotensin-Converting Enzyme (ACE) Inhibitor",
+    "general_uses": "Management of hypertension, heart failure with reduced ejection fraction, and renal protection in diabetic nephropathy.",
+    "warnings": "Angioedema risk, hyperkalemia, acute kidney injury in renal artery stenosis, persistent dry cough.",
+    "contraindications": ["History of ACE inhibitor-induced angioedema", "Concomitant sacubitril/valsartan within 36 hours", "Pregnancy (teratogenic)"],
+    "common_interactions": ["Potassium supplements", "Potassium-sparing diuretics (spironolactone)", "NSAIDs", "Lithium"],
+    "monitoring_considerations": "Serum creatinine, eGFR, and serum potassium 1-2 weeks after initiation and titration.",
+    "reference_dosage": "Adult initial hypertension reference: 10 mg once daily. Adjust based on blood pressure response. Requires formal prescriber evaluation."
+  },
+  "levothyroxine": {
+    "name": "Levothyroxine",
+    "drug_class": "Synthetic thyroid hormone (T4)",
+    "general_uses": "Replacement therapy for primary, secondary, and tertiary hypothyroidism.",
+    "warnings": "Do not use for weight loss; excessive doses exacerbate cardiovascular conditions.",
+    "contraindications": ["Uncorrected adrenal insufficiency", "Acute myocardial infarction"],
+    "common_interactions": ["Calcium carbonate", "Iron supplements", "Proton pump inhibitors", "Cholestyramine"],
+    "monitoring_considerations": "Serum TSH evaluated 6 to 8 weeks after dose initiation or adjustment.",
+    "reference_dosage": "Adult initial reference: 1.6 mcg/kg/day or 25-50 mcg daily in elderly or cardiac disease patients. Take on empty stomach with water 30-60 minutes before breakfast."
+  }
+}

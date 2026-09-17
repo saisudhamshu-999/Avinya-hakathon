@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Readout — understand your lab report</title>
+<meta name="description" content="Readout turns the numbers on a laboratory report into plain language, flags values outside the ranges your lab printed, and helps you prepare for the conversation with your doctor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="marketing">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="wordmark" href="index.html">
+    <span class="mark" style="color:var(--pine)" data-logo></span>
+    <span><b>Readout</b><span>lab reports, in plain language</span></span>
+  </a>
+  <nav aria-label="Main">
+    <a href="#how" class="hide-sm">How it works</a>
+    <a href="#scope" class="hide-sm">What it won't do</a>
+    <a href="help.html" class="hide-sm">Help</a>
+    <a href="dashboard.html">See a sample report</a>
+    <button class="theme-toggle" type="button" data-theme-toggle style="width:auto;margin-left:6px">
+      <span data-theme-icon></span><span class="sr-only">Switch theme</span>
+    </button>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <h1>Your report says <span class="num" style="font-size:.86em">112 mg/dL</span>. It doesn't say what that means.</h1>
+        <p class="hero-lede">Readout reads your laboratory report, explains each test in ordinary words, and marks the values that fall outside the ranges your own lab printed — so you walk into your appointment knowing what to ask.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg" href="upload.html">Upload a report</a>
+          <a class="btn btn-secondary btn-lg" href="dashboard.html">Look at a sample first</a>
+        </div>
+        <p class="hero-assure">Your file is read on your device and is not sent anywhere. Readout flags results; it does not diagnose, treat, or replace a clinician.</p>
+      </div>
+
+      <div class="translator" aria-label="Example of a report line being explained">
+        <div class="translator-strip">
+          <span data-strip-icon></span>
+          <span>blood_panel_march.pdf — page 2 of 3</span>
+          <span class="chip chip--plain" style="margin-left:auto">18 tests found</span>
+        </div>
+
+        <div class="translator-raw">
+<pre><span>HAEMOGLOBIN (HGB)          13.4   g/dL    12.0-15.5</span>
+<span class="lit">GLUCOSE, FASTING           112    mg/dL   70-99      <span class="flagmark">H</span></span>
+<span>HbA1c (HPLC)               6.1    %       4.0-5.6    <span class="flagmark">H</span></span>
+<span>CHOLESTEROL, TOTAL         214    mg/dL   &lt;200       <span class="flagmark">H</span></span></pre>
+        </div>
+
+        <div class="translator-out">
+          <h3>Fasting blood glucose</h3>
+          <div style="margin:14px 0 6px" data-hero-gauge></div>
+          <div class="row" style="gap:14px">
+            <span class="num" style="font-size:var(--t-lg)">112 <span style="font-size:var(--t-xs);color:var(--ink-3)">mg/dL</span></span>
+            <span class="chip chip--out">Above the printed range of 70–99</span>
+          </div>
+          <p class="plain" data-typed></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="how">
+    <div class="band-head">
+      <h2>Three steps, and none of them involve sending your report to a stranger</h2>
+      <p>Upload happens in your browser. Nothing is transmitted to a server, stored in an account, or shared with an insurer or employer.</p>
+    </div>
+    <ol class="steps" style="list-style:none;margin:0;padding:0">
+      <li class="step">
+        <span class="ord">Step one</span>
+        <h3>It reads the page</h3>
+        <p>Optical character recognition pulls the text out of your PDF or photo, then an extraction model separates each test into four parts: the name, the value, the unit and the reference range beside it.</p>
+      </li>
+      <li class="step">
+        <span class="ord">Step two</span>
+        <h3>It compares like with like</h3>
+        <p>Every value is checked against the range your own laboratory printed for it — not a generic table. Anything outside that range is marked, and anything the report left without a range is marked differently.</p>
+      </li>
+      <li class="step">
+        <span class="ord">Step three</span>
+        <h3>It writes it out in words</h3>
+        <p>Each test gets a plain explanation of what it measures and what commonly moves it. Results that are usually read together are grouped, and you get a one-page summary to hand to your doctor.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="band" id="scope" style="padding-top:20px">
+    <div class="band-head">
+      <h2>Where the line is</h2>
+      <p>A tool that reads lab reports could easily drift into sounding like a doctor. Readout is built so it can't.</p>
+    </div>
+    <div class="ledger">
+      <div class="ledger-col ledger-col--does">
+        <h3>What Readout does</h3>
+        <ul>
+          <li><span data-icon="check"></span><span>Names every test on the page and says what it measures</span></li>
+          <li><span data-icon="check"></span><span>Marks values sitting outside the range your lab printed</span></li>
+          <li><span data-icon="check"></span><span>Shows how far outside, and in which direction</span></li>
+          <li><span data-icon="check"></span><span>Expands abbreviations like SGPT, PCV and 25(OH)D</span></li>
+          <li><span data-icon="check"></span><span>Points out results usually read as a group</span></li>
+          <li><span data-icon="check"></span><span>Drafts questions worth asking at your appointment</span></li>
+          <li><span data-icon="check"></span><span>Builds a one-page summary you can print or email</span></li>
+        </ul>
+      </div>
+      <div class="ledger-col ledger-col--doesnt">
+        <h3>What it will never do</h3>
+        <ul>
+          <li><span data-icon="dash"></span><span>Name a condition, or suggest you might have one</span></li>
+          <li><span data-icon="dash"></span><span>Tell you a result is nothing to worry about</span></li>
+          <li><span data-icon="dash"></span><span>Recommend a medicine, dose or supplement</span></li>
+          <li><span data-icon="dash"></span><span>Tell you whether to go to hospital, or when</span></li>
+          <li><span data-icon="dash"></span><span>Predict what will happen next</span></li>
+          <li><span data-icon="dash"></span><span>Keep a copy of your report or send it anywhere</span></li>
+          <li><span data-icon="dash"></span><span>Stand in for an appointment you were going to make</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:20px">
+    <div class="band-head">
+      <h2>Built around one honest question: what do I ask the doctor?</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="ord">Plain language</span>
+        <h3>Every test, expanded</h3>
+        <p>Tap any result to read what the test measures, what commonly moves it up or down, and what the abbreviation on your report stands for. Medical terms stay available, but they are never the first thing you meet.</p>
+      </div>
+      <div class="step">
+        <span class="ord">Patterns</span>
+        <h3>Results that travel together</h3>
+        <p>Some tests are only meaningful next to others — glucose beside HbA1c, creatinine beside eGFR. Readout groups those and explains the relationship, without drawing a conclusion from it.</p>
+      </div>
+      <div class="step">
+        <span class="ord">Hand-off</span>
+        <h3>A page for your doctor</h3>
+        <p>Add why the test was ordered and what you want to know, and Readout assembles it with the flagged values into a single printable page. You add the context; it only does the typing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:20px">
+    <div class="band-head"><h2>Questions people ask first</h2></div>
+    <div>
+      <details class="faq-item">
+        <summary>Does a flag mean something is wrong?</summary>
+        <p>No. A flag means only that the number printed on your report sits outside the range printed next to it. Plenty of healthy people have results outside a reference range, and plenty of ranges differ between laboratories for the same test. A flag is a prompt to ask, not an answer.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Where does my report go?</summary>
+        <p>Nowhere. Text recognition and explanation run inside your browser, so the file never leaves the device. If you turn on history, past results are kept in your browser's local storage on this device only, and you can erase them from Settings at any time.</p>
+      </details>
+      <details class="faq-item">
+        <summary>My report is a photo taken on a phone. Will that work?</summary>
+        <p>Usually. Flat, evenly lit, in focus, with the whole page in frame gives the best extraction. Readout shows you every value it read so you can check them against the paper before relying on anything.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What if a result looks alarming?</summary>
+        <p>Contact a clinician rather than reading further here. Readout deliberately does not rank results by severity or tell you how urgent anything is, because that judgement depends on your history, your symptoms and your medicines — none of which are on the page it read.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I use it for someone else's report?</summary>
+        <p>Yes, with their agreement — parents and carers often do. The summary page has a field for who the report belongs to so the printed page is not ambiguous at the appointment.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="closer">
+      <h2>Bring the paper. Bring the questions too.</h2>
+      <p>Readout takes about twenty seconds on a typical three-page panel, and gives you something to say when the appointment starts.</p>
+      <a class="btn btn-primary btn-lg" href="upload.html">Upload a report</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="site-foot-inner">
+    <p style="max-width:44ch">Readout is an explanatory aid for people reading their own laboratory results. It is not a medical device and does not provide diagnosis or treatment advice.</p>
+    <nav aria-label="Footer">
+      <a href="upload.html">Upload</a>
+      <a href="dashboard.html">Sample report</a>
+      <a href="help.html">Help &amp; glossary</a>
+      <a href="settings.html">Settings</a>
+      <a href="help.html#disclaimer">Medical disclaimer</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  document.querySelector("[data-logo]").innerHTML = ICON.mark;
+  document.querySelector("[data-strip-icon]").innerHTML = ICON.file;
+  syncThemeIcon();
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("[data-theme-toggle]")) return;
+    const order = ["light", "dark", "auto"];
+    const next = order[(order.indexOf(Prefs.theme()) + 1) % order.length];
+    Store.set("theme", next); applyTheme(next); syncThemeIcon();
+  });
+
+  document.querySelectorAll('[data-icon="check"]').forEach(n => n.innerHTML = ICON.check);
+  document.querySelectorAll('[data-icon="dash"]').forEach(n => n.innerHTML = ICON.dash);
+
+  const glucose = PARAMETERS.find(p => p.id === "glucose");
+  document.querySelector("[data-hero-gauge]").innerHTML = gauge(glucose, { width: 320, height: 26 });
+
+  // one orchestrated moment on load: the explanation writes itself out
+  const target = document.querySelector("[data-typed]");
+  const line = "Fasting glucose is the amount of sugar in your blood after several hours without food. This reading is 13 points above the upper end of your lab's range. How long you actually fasted, illness and some medicines all move it — which is why your doctor reads it alongside HbA1c rather than on its own.";
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced) {
+    target.textContent = line;
+  } else {
+    const caret = document.createElement("span");
+    caret.className = "caret";
+    target.appendChild(caret);
+    let i = 0;
+    const tick = () => {
+      i += 2;
+      caret.insertAdjacentText("beforebegin", line.slice(i - 2, i));
+      if (i < line.length) setTimeout(tick, 14);
+      else setTimeout(() => caret.remove(), 900);
+    };
+    setTimeout(tick, 550);
+  }
+</script>
+</body>
+</html>

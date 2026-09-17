@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings — Readout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+  <div data-rail></div>
+  <div class="canvas">
+    <main class="page page--narrow" id="main">
+
+      <div class="page-head">
+        <h1>Settings</h1>
+        <p>Everything here is stored in this browser on this device. There is no account, so nothing follows you to another phone or computer.</p>
+      </div>
+
+      <div class="stack">
+
+        <section class="card">
+          <div class="card-head"><h2>Reading</h2></div>
+
+          <div class="switch-row">
+            <div>
+              <div class="label">Units</div>
+              <div class="desc">Conventional units are what most Indian and US labs print. SI units are common in the UK, Europe and Australia — the same result, on a different scale.</div>
+            </div>
+            <div class="segmented" role="group" aria-label="Units">
+              <button type="button" data-units="conventional">mg/dL</button>
+              <button type="button" data-units="si">mmol/L</button>
+            </div>
+          </div>
+
+          <div class="switch-row">
+            <div>
+              <div class="label">Text size</div>
+              <div class="desc">Affects every page. Your browser's own zoom still works on top of this.</div>
+            </div>
+            <div class="segmented" role="group" aria-label="Text size">
+              <button type="button" data-text="normal">Normal</button>
+              <button type="button" data-text="large">Large</button>
+              <button type="button" data-text="xlarge">Larger</button>
+            </div>
+          </div>
+
+          <div class="switch-row">
+            <div>
+              <div class="label">Appearance</div>
+              <div class="desc">Automatic follows your device's light or dark setting.</div>
+            </div>
+            <div class="segmented" role="group" aria-label="Appearance">
+              <button type="button" data-appearance="light">Light</button>
+              <button type="button" data-appearance="dark">Dark</button>
+              <button type="button" data-appearance="auto">Auto</button>
+            </div>
+          </div>
+
+          <div class="switch-row">
+            <div>
+              <div class="label">Explanation language</div>
+              <div class="desc">Explanations are rewritten, not machine-translated word for word. Values and units never change.</div>
+            </div>
+            <select id="lang" style="max-width:190px">
+              <option value="en">English</option>
+              <option value="hi">हिन्दी</option>
+              <option value="te">తెలుగు</option>
+              <option value="ta">தமிழ்</option>
+              <option value="bn">বাংলা</option>
+              <option value="es">Español</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head"><h2>Your data</h2></div>
+
+          <div class="switch-row">
+            <div>
+              <div class="label">Keep past reports on this device</div>
+              <div class="desc">Lets Readout draw trends across reports. Turn this off and each report is forgotten as soon as you close the tab.</div>
+            </div>
+            <input type="checkbox" id="keep" style="width:auto;accent-color:var(--pine)">
+          </div>
+
+          <div class="switch-row">
+            <div>
+              <div class="label">What is stored right now</div>
+              <div class="desc" data-storage-list>Checking…</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" type="button" id="export-data">Export a copy</button>
+          </div>
+
+          <div class="switch-row">
+            <div>
+              <div class="label">Erase everything</div>
+              <div class="desc">Removes saved reports, your summary draft, your questions and these settings from this browser.</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" type="button" id="erase">Erase</button>
+          </div>
+
+          <div style="margin-top:20px;border-top:1px solid var(--line);padding-top:16px">
+            <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:8px">
+              <h3 style="margin:0;font-size:15px">Audit &amp; Clinical Safety Trail</h3>
+              <button class="btn btn-quiet btn-sm" type="button" id="refresh-audit" style="font-size:12px">Refresh log</button>
+            </div>
+            <p class="card-sub" style="margin-bottom:12px">Immutable tracking for OCR verifications, clinical assessments, and user actions.</p>
+            <div id="audit-list" style="background:var(--surface-sunk);padding:10px 14px;border-radius:6px;font-family:var(--font-mono, monospace);font-size:11.5px;max-height:160px;overflow-y:auto;border:1px solid var(--line)">
+              <!-- Loaded from API -->
+            </div>
+          </div>
+
+          <p class="guard" style="margin-top:18px">
+            <span data-lock></span>
+            <span>Readout has no server, no account and no analytics. Your report is read in this browser and is never transmitted. That also means nobody — including us — can recover anything you erase.</span>
+          </p>
+        </section>
+
+        <section class="card">
+          <div class="card-head"><h2>Safety</h2></div>
+          <div class="switch-row">
+            <div>
+              <div class="label">Show the non-diagnostic notice on every screen</div>
+              <div class="desc">On by default. It is short, and it is the thing people most often forget.</div>
+            </div>
+            <input type="checkbox" id="always-guard" checked disabled style="width:auto;accent-color:var(--pine)">
+          </div>
+          <p class="card-sub" style="margin-top:14px">This one cannot be turned off. Readout flags values against printed ranges and explains terminology; it does not interpret results, assess urgency, or advise on treatment.</p>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+mountShell("settings");
+$("[data-lock]").innerHTML = ICON.lock;
+
+function markGroup(attr, value) {
+  $$(`[${attr}]`).forEach((b) => b.setAttribute("aria-pressed", String(b.getAttribute(attr) === value)));
+}
+
+markGroup("data-units", Prefs.units());
+$$("[data-units]").forEach((b) => b.addEventListener("click", () => {
+  Store.set("units", b.dataset.units);
+  markGroup("data-units", b.dataset.units);
+  toast(b.dataset.units === "si" ? "Showing SI units" : "Showing conventional units");
+}));
+
+markGroup("data-text", Prefs.text());
+$$("[data-text]").forEach((b) => b.addEventListener("click", () => {
+  Store.set("text", b.dataset.text);
+  applyTextSize(b.dataset.text);
+  markGroup("data-text", b.dataset.text);
+}));
+
+markGroup("data-appearance", Prefs.theme());
+$$("[data-appearance]").forEach((b) => b.addEventListener("click", () => {
+  Store.set("theme", b.dataset.appearance);
+  applyTheme(b.dataset.appearance);
+  markGroup("data-appearance", b.dataset.appearance);
+  syncThemeIcon();
+}));
+
+const lang = $("#lang");
+lang.value = Store.get("lang", "en");
+lang.addEventListener("change", () => {
+  Store.set("lang", lang.value);
+  toast("Explanation language saved");
+});
+
+const keep = $("#keep");
+keep.checked = Prefs.keepHistory();
+keep.addEventListener("change", () => {
+  Store.set("keepHistory", keep.checked);
+  toast(keep.checked ? "History will be kept on this device" : "History off — reports are forgotten on close");
+});
+
+function storageSummary() {
+  const bits = [];
+  if (Store.get("reviewed", []).length) bits.push(`${Store.get("reviewed", []).length} results marked as read`);
+  if (Store.get("questions", []).length) bits.push(`${Store.get("questions", []).length} questions`);
+  if (Object.keys(Store.get("summaryForm", {})).length) bits.push("a summary draft");
+  bits.push("your preferences");
+  $("[data-storage-list]").textContent = bits.join(", ") + ". Nothing else.";
+}
+storageSummary();
+
+async function loadAuditLog() {
+  const container = $("#audit-list");
+  if (!container) return;
+  try {
+    const res = await API.getAuditLogs();
+    const logs = res.data || [];
+    if (!logs.length) {
+      container.innerHTML = `<div style="color:var(--ink-3)">No audit entries recorded yet.</div>`;
+      return;
+    }
+    container.innerHTML = logs.map(l => `
+      <div style="padding:4px 0;border-bottom:1px solid rgba(0,0,0,0.05);display:flex;justify-content:space-between">
+        <span><strong>[${esc(l.event_type)}]</strong> ${esc(l.details)}</span>
+        <span style="color:var(--ink-3);margin-left:8px">${new Date(l.timestamp).toLocaleTimeString()}</span>
+      </div>
+    `).join("");
+  } catch {
+    container.innerHTML = `<div style="color:var(--ink-3)">Audit logs unavailable.</div>`;
+  }
+}
+loadAuditLog();
+$("#refresh-audit")?.addEventListener("click", () => { loadAuditLog(); toast("Audit trail refreshed"); });
+
+$("#export-data").addEventListener("click", () => {
+  const dump = {};
+  try {
+    Object.keys(localStorage).filter((k) => k.startsWith("readout."))
+      .forEach((k) => { dump[k.replace("readout.", "")] = JSON.parse(localStorage.getItem(k)); });
+  } catch { /* ignore */ }
+  downloadText("readout-data.json", JSON.stringify(dump, null, 2), "application/json");
+});
+
+$("#erase").addEventListener("click", () => {
+  const box = el(`<div>
+    <h2>Erase everything on this device?</h2>
+    <p class="card-sub" style="margin:10px 0 20px">Saved reports, your summary draft, your questions and these settings will be removed from this browser. It cannot be undone.</p>
+    <div class="row"><button class="btn btn-secondary btn-sm" type="button" data-close>Cancel</button>
+    <button class="btn btn-primary btn-sm row-end" type="button" id="yes">Erase everything</button></div>
+  </div>`);
+  const close = openModal(box);
+  $("#yes", box).addEventListener("click", () => {
+    Store.clearAll(); close(); toast("Erased");
+    setTimeout(() => location.reload(), 700);
+  });
+});
+</script>
+</body>
+</html>

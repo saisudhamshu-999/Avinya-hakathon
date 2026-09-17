@@ -1,0 +1,24 @@
+{
+  "prediabetes_and_diabetes": {
+    "organization": "American Diabetes Association (ADA)",
+    "criteria": {
+      "normal_fbs": "Less than 100 mg/dL",
+      "impaired_fasting_glucose": "100 mg/dL to 125 mg/dL",
+      "provisional_diabetes": "126 mg/dL or higher on more than one occasion",
+      "normal_hba1c": "Less than 5.7%",
+      "prediabetes_hba1c": "5.7% to 6.4%",
+      "diabetes_hba1c": "6.5% or higher confirmed by repeat testing"
+    },
+    "guidance": "Lifestyle interventions (nutrition, 150 min/wk moderate physical activity) are first-line. Metformin may be considered for prediabetes if BMI >= 35 or history of GDM. Clinician evaluation required."
+  },
+  "dyslipidemia": {
+    "organization": "ACC / AHA Multisociety Cholesterol Guidelines",
+    "criteria": {
+      "optimal_ldl": "Less than 100 mg/dL (< 70 mg/dL in high risk)",
+      "borderline_high_chol": "200 to 239 mg/dL",
+      "high_chol": "240 mg/dL or higher",
+      "high_tg": "150 to 499 mg/dL"
+    },
+    "guidance": "Calculate 10-year ASCVD risk before initiating statin pharmacotherapy. Address secondary causes such as diabetes, thyroid dysfunction, and medication effects."
+  }
+}
