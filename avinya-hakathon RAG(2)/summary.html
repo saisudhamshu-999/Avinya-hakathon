@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Summary for your doctor — Readout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+  <div data-rail></div>
+  <div class="canvas">
+    <main class="page" id="main">
+
+      <div class="page-head no-print">
+        <h1>A page to take to your appointment</h1>
+        <p>You add the part Readout can't know — why the test was ordered, how you have been feeling, what you want to ask. Readout lays it out with the values from your report so nothing gets forgotten in the room.</p>
+      </div>
+
+      <div data-gate class="no-print"></div>
+
+      <div class="builder">
+        <form class="builder-form no-print" id="form" autocomplete="off">
+          <section class="card">
+            <div class="card-head"><h3>Who and when</h3></div>
+            <div class="stack" style="gap:14px">
+              <div class="field">
+                <label for="who">This report belongs to</label>
+                <input type="text" id="who" name="who" placeholder="Your name, or the person you're attending with">
+              </div>
+              <div class="field">
+                <label for="dob">Age</label>
+                <input type="text" id="dob" name="dob" placeholder="e.g. 41">
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-head"><h3>Context only you have</h3></div>
+            <div class="stack" style="gap:16px">
+              <div class="field">
+                <label for="reason">Why was this test done?</label>
+                <input type="text" id="reason" name="reason" placeholder="Routine check, follow-up, or a specific concern">
+              </div>
+              <div class="field">
+                <label for="fast">How long had you fasted?</label>
+                <input type="text" id="fast" name="fast" placeholder="e.g. about 10 hours, water only">
+                <span class="hint">Several results on this report read differently depending on the answer.</span>
+              </div>
+              <div class="field">
+                <label for="context">Anything you have noticed</label>
+                <textarea id="context" name="context" placeholder="Changes in energy, weight, sleep, appetite — or nothing at all, which is also worth saying"></textarea>
+              </div>
+              <div class="field">
+                <label for="meds">Medicines and supplements</label>
+                <textarea id="meds" name="meds" placeholder="Including anything over the counter, and anything you stopped recently" style="min-height:70px"></textarea>
+                <span class="hint">Readout does not check interactions. This is here so the clinician has the list in front of them.</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-head"><h3>What you want to ask</h3></div>
+            <p class="card-sub" style="margin-bottom:12px">Starting points drawn from the flagged results. Edit them, delete them, add your own.</p>
+            <div data-questions style="display:flex;flex-direction:column;gap:8px"></div>
+            <div class="row" style="margin-top:12px">
+              <input type="text" id="new-q" placeholder="Add a question" style="flex:1 1 180px">
+              <button class="btn btn-secondary btn-sm" type="button" id="add-q">Add</button>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-head"><h3>What to include</h3></div>
+            <div class="switch-row">
+              <div><div class="label">In-range results</div><div class="desc">A compact list of everything that sat inside its printed range.</div></div>
+              <input type="checkbox" id="opt-inrange" checked style="width:auto;accent-color:var(--pine)">
+            </div>
+            <div class="switch-row">
+              <div><div class="label">Grouped results</div><div class="desc">The note about which tests are usually read together.</div></div>
+              <input type="checkbox" id="opt-patterns" checked style="width:auto;accent-color:var(--pine)">
+            </div>
+            <div class="switch-row">
+              <div><div class="label">Trend over past reports</div><div class="desc">Earlier values for the flagged tests, if you have history saved.</div></div>
+              <input type="checkbox" id="opt-trends" checked style="width:auto;accent-color:var(--pine)">
+            </div>
+          </section>
+        </form>
+
+        <div>
+          <div class="row no-print" style="margin-bottom:14px">
+            <span class="card-sub">Live preview — one page when printed</span>
+            <div class="row row-end" style="gap:8px">
+              <button class="btn btn-secondary btn-sm" type="button" data-act="copy" disabled><span data-i="copy"></span>Copy text</button>
+              <button class="btn btn-secondary btn-sm" type="button" data-act="download" disabled><span data-i="download"></span>Download</button>
+              <button class="btn btn-secondary btn-sm" type="button" data-act="email" disabled><span data-i="mail"></span>Email</button>
+              <button class="btn btn-primary btn-sm" type="button" data-act="print" disabled><span data-i="print"></span>Print / save as PDF</button>
+            </div>
+          </div>
+          <div class="sheet" id="sheet"></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/summary.js"></script>
+</body>
+</html>

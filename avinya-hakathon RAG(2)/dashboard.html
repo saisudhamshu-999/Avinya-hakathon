@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your results — Readout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+  <div data-rail></div>
+  <div class="canvas">
+    <main class="page" id="main">
+
+      <header class="report-head">
+        <div>
+          <h1 data-report-title>Your results</h1>
+          <p class="report-meta" data-report-meta></p>
+        </div>
+        <div class="report-actions no-print">
+          <button class="btn btn-secondary btn-sm" type="button" id="check-extraction">Check what was read</button>
+          <a class="btn btn-secondary btn-sm" href="upload.html">Upload another</a>
+          <a class="btn btn-primary btn-sm" href="summary.html">Build doctor summary</a>
+        </div>
+      </header>
+
+      <div data-verdict></div>
+
+      <div class="dash-grid">
+        <div class="stack">
+
+          <section class="card" aria-labelledby="flags-h">
+            <div class="card-head">
+              <h2 id="flags-h">Worth raising with a clinician</h2>
+              <span class="card-sub" data-flag-count></span>
+            </div>
+            <div data-flags></div>
+            <p class="guard" style="margin-top:18px">
+              <span data-icon-info></span>
+              <span>These values sit outside the ranges your laboratory printed for them. That is all a flag means. It is not a diagnosis, a severity rating, or a reason to change anything you are doing — only a clinician who knows your history can say what any of it means for you.</span>
+            </p>
+          </section>
+
+          <section class="card" aria-labelledby="all-h">
+            <div class="card-head">
+              <h2 id="all-h">Every test on this report</h2>
+              <span class="card-sub" data-shown-count></span>
+            </div>
+
+            <div class="stack" style="gap:12px">
+              <div class="search">
+                <span data-icon-search></span>
+                <input type="search" id="q" placeholder="Search a test, e.g. haemoglobin, SGPT, vitamin D" aria-label="Search tests">
+              </div>
+              <div class="filters" role="group" aria-label="Filter results">
+                <button class="filter" data-filter="all" aria-pressed="true">All</button>
+                <button class="filter" data-filter="out" aria-pressed="false">Outside range</button>
+                <button class="filter" data-filter="in" aria-pressed="false">In range</button>
+                <span style="width:1px;background:var(--line);margin:0 4px"></span>
+                <button class="filter" data-group="all" aria-pressed="true">Every group</button>
+              </div>
+            </div>
+
+            <div class="params" data-params style="margin-top:14px"></div>
+            <div data-no-results hidden></div>
+          </section>
+
+          <section class="card" aria-labelledby="patterns-h">
+            <div class="card-head">
+              <h2 id="patterns-h">Results usually read together</h2>
+            </div>
+            <p class="card-sub" style="margin-bottom:22px;max-width:66ch">Some tests only make sense next to others. These groupings describe how the tests relate in general — they are not conclusions about your results.</p>
+            <div data-patterns></div>
+          </section>
+
+          <!-- Clinical Decision Support & Medical Intelligence -->
+          <section class="card" id="cds-section" aria-labelledby="cds-h">
+            <div class="card-head">
+              <div>
+                <h2 id="cds-h">Clinical Decision Support & AI Analysis</h2>
+                <p class="card-sub">AI assistance strictly separated from confirmed clinical diagnosis and prescriber authority.</p>
+              </div>
+              <div class="row-end" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <button class="btn btn-secondary btn-sm" type="button" data-open-rag>📚 Clinical Guidelines</button>
+                <button class="btn btn-primary btn-sm" type="button" data-open-chat>🛡️ Ask RAG</button>
+                <span class="chip chip--in">Safeguards Active</span>
+              </div>
+            </div>
+
+            <div class="filters" role="tablist" style="margin-bottom:18px">
+              <button class="filter" data-cdstab="assessment" aria-pressed="true" role="tab">AI Assessment</button>
+              <button class="filter" data-cdstab="prediction" aria-pressed="false" role="tab">Longitudinal Risk</button>
+              <button class="filter" data-cdstab="medications" aria-pressed="false" role="tab">Medication Options</button>
+              <button class="filter" data-cdstab="prescription" aria-pressed="false" role="tab">Prescription Draft</button>
+            </div>
+
+            <div id="cds-content" style="background:var(--surface-sunk);padding:18px;border-radius:var(--r-md);border:1px solid var(--line)">
+              <!-- Dynamic content loaded by dashboard.js -->
+            </div>
+          </section>
+
+        </div>
+
+        <aside class="dash-side no-print">
+          <section class="card" aria-labelledby="check-h">
+            <div class="card-head"><h3 id="check-h">Before you rely on this</h3></div>
+            <div class="aside-box" style="margin-bottom:14px">
+              <dl>
+                <dt>Pages read</dt><dd class="num" data-stat-pages></dd>
+                <dt>Tests found</dt><dd class="num" data-stat-tests></dd>
+                <dt>Ranges matched</dt><dd class="num" data-stat-ranges></dd>
+              </dl>
+            </div>
+            <p class="card-sub" style="margin-bottom:14px">Text recognition makes mistakes, especially on photographs. Compare a few values against the paper before you act on anything.</p>
+            <button class="btn btn-secondary btn-sm btn-block" type="button" id="check-extraction-2">Check what was read</button>
+          </section>
+
+          <section class="card" aria-labelledby="todo-h">
+            <div class="card-head"><h3 id="todo-h">Your checklist</h3></div>
+            <p class="card-sub" style="margin-bottom:12px">Tick each flagged result once you have read it. The doctor summary uses this to make sure nothing gets left out.</p>
+            <div data-checklist></div>
+          </section>
+
+          <section class="card sparkline-card" aria-labelledby="trend-h">
+            <div class="card-head">
+              <h3 id="trend-h">Over your last four reports</h3>
+            </div>
+            <div data-trends></div>
+            <a class="btn btn-quiet btn-sm" href="history.html" style="margin-top:14px;padding-left:0">See full history</a>
+          </section>
+
+          <section class="card" aria-labelledby="worry-h">
+            <div class="card-head"><h3 id="worry-h">If a result is worrying you</h3></div>
+            <p class="card-sub">Readout deliberately doesn't rate urgency — that depends on your symptoms, history and medicines, none of which are on this page. If you feel unwell or something here has frightened you, call your doctor's practice rather than reading on.</p>
+            <a class="btn btn-secondary btn-sm btn-block" href="help.html#worried" style="margin-top:14px">What to do next</a>
+          </section>
+        </aside>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/dashboard.js"></script>
+</body>
+</html>

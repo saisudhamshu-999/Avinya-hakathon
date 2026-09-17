@@ -1,0 +1,239 @@
+[
+  {
+    "id": "ada_glycemic_targets",
+    "title": "ADA Standards of Care: Glycemic Targets & Prediabetes",
+    "organization": "American Diabetes Association (ADA) 2025/2026",
+    "canonical_tests": ["glucose", "hba1c", "eag"],
+    "keywords": ["glucose", "sugar", "fbs", "fasting blood glucose", "hba1c", "glycated haemoglobin", "prediabetes", "diabetes", "insulin"],
+    "diagnostic_criteria": {
+      "fasting_blood_glucose": {
+        "normal": "70 to 99 mg/dL (3.9 to 5.5 mmol/L)",
+        "impaired_fasting_glucose_prediabetes": "100 to 125 mg/dL (5.6 to 6.9 mmol/L)",
+        "provisional_diabetes": "126 mg/dL (7.0 mmol/L) or higher on confirmatory repeat test"
+      },
+      "glycated_haemoglobin_hba1c": {
+        "normal": "Below 5.7% (< 39 mmol/mol)",
+        "prediabetes": "5.7% to 6.4% (39 to 47 mmol/mol)",
+        "diabetes": "6.5% or higher (>= 48 mmol/mol) confirmed by repeat sample"
+      }
+    },
+    "biological_mechanism": "Fasting plasma glucose reflects basal hepatic glucose output during an overnight fast. Glycated hemoglobin (HbA1c) measures non-enzymatic glycosylation of hemoglobin in red blood cells over their ~120-day lifespan, providing a weighted 90-day average. The estimated average glucose (eAG) formula is: eAG (mg/dL) = (28.7 * HbA1c) - 46.7.",
+    "clinical_significance": "Concordant elevation in both fasting glucose and HbA1c strongly indicates impaired fasting glycemia (prediabetes). Conditions like iron deficiency anemia or hemoglobinopathies can falsely elevate or depress HbA1c respectively. Repeat testing is required for formal diagnosis.",
+    "lifestyle_and_interventions": "First-line management comprises lifestyle therapy: intensive nutrition counseling, Mediterranean or DASH diet pattern, 7% sustained body weight reduction, and at least 150 minutes per week of moderate-intensity aerobic exercise. Metformin may be evaluated by clinicians for prediabetes with high BMI or historical gestational diabetes.",
+    "monitoring_guidelines": "For individuals with prediabetes (HbA1c 5.7-6.4%), repeat glycemic monitoring is recommended every 6 to 12 months.",
+    "suggested_questions": [
+      "Does this combination of fasting glucose and HbA1c qualify as prediabetes?",
+      "Would an oral glucose tolerance test (OGTT) or repeat fasting test be helpful?",
+      "What dietary changes and physical activity targets should I prioritize before repeat testing?"
+    ]
+  },
+  {
+    "id": "acc_aha_lipid_guidelines",
+    "title": "AHA/ACC Multisociety Blood Cholesterol Management Guidelines",
+    "organization": "American College of Cardiology & American Heart Association (ACC/AHA)",
+    "canonical_tests": ["chol", "ldl", "hdl", "tg", "non_hdl"],
+    "keywords": ["cholesterol", "lipid", "ldl", "hdl", "triglycerides", "fats", "cardiovascular", "heart", "statin", "ascvd"],
+    "diagnostic_criteria": {
+      "total_cholesterol": {
+        "desirable": "Below 200 mg/dL (< 5.18 mmol/L)",
+        "borderline_high": "200 to 239 mg/dL (5.18 to 6.19 mmol/L)",
+        "high": "240 mg/dL (>= 6.22 mmol/L) or higher"
+      },
+      "ldl_cholesterol": {
+        "optimal": "Below 100 mg/dL (< 2.59 mmol/L)",
+        "near_optimal": "100 to 129 mg/dL",
+        "borderline_high": "130 to 159 mg/dL",
+        "high": "160 to 189 mg/dL",
+        "very_high": "190 mg/dL or higher"
+      },
+      "hdl_cholesterol": {
+        "low_men": "Below 40 mg/dL (increased risk)",
+        "low_women": "Below 50 mg/dL (increased risk)",
+        "protective_optimal": "60 mg/dL or higher"
+      },
+      "triglycerides": {
+        "normal": "Below 150 mg/dL (< 1.7 mmol/L)",
+        "borderline_high": "150 to 199 mg/dL",
+        "high": "200 to 499 mg/dL",
+        "very_high_pancreatitis_risk": "500 mg/dL or higher"
+      }
+    },
+    "biological_mechanism": "LDL particles transport cholesterol to peripheral tissues and penetrate arterial walls, initiating atherogenesis. HDL mediates reverse cholesterol transport back to the liver. Elevated triglycerides are carried in VLDL particles; high TG with low HDL is a classic hallmark of atherogenic dyslipidemia and insulin resistance.",
+    "clinical_significance": "A Total Cholesterol / HDL ratio above 4.5 or Triglycerides / HDL ratio above 3.0 points to an atherogenic lipoprotein phenotype. Clinicians evaluate 10-year ASCVD risk before deciding on lipid-lowering pharmacotherapy.",
+    "lifestyle_and_interventions": "Dietary reduction in saturated and trans fats, elimination of refined sugars and sugar-sweetened beverages, reduction in alcohol, and 150+ minutes of aerobic activity per week.",
+    "monitoring_guidelines": "Recheck fasting lipid panel 4 to 12 weeks after initiation of lifestyle changes or pharmacotherapy.",
+    "suggested_questions": [
+      "What is my 10-year cardiovascular (ASCVD) risk score based on these lipid levels?",
+      "Do my high triglycerides and low HDL point to metabolic syndrome?",
+      "Should we trial dietary adjustments for 3 months before considering statin medication?"
+    ]
+  },
+  {
+    "id": "kdigo_renal_evaluation",
+    "title": "KDIGO Guidelines on Renal Assessment and Chronic Kidney Disease",
+    "organization": "Kidney Disease: Improving Global Outcomes (KDIGO)",
+    "canonical_tests": ["creat", "egfr", "bun", "urea", "potassium", "sodium"],
+    "keywords": ["creatinine", "egfr", "kidney", "renal", "filtration", "bun", "urea", "nephron", "hydration", "potassium", "sodium"],
+    "diagnostic_criteria": {
+      "serum_creatinine": {
+        "normal_adult": "0.5 to 1.1 mg/dL for adult females; 0.7 to 1.3 mg/dL for adult males"
+      },
+      "egfr_stages": {
+        "G1_normal_high": "90 mL/min/1.73m2 or higher",
+        "G2_mildly_decreased": "60 to 89 mL/min/1.73m2",
+        "G3a_mild_to_moderate": "45 to 59 mL/min/1.73m2",
+        "G3b_moderate_to_severe": "30 to 44 mL/min/1.73m2",
+        "G4_severe": "15 to 29 mL/min/1.73m2",
+        "G5_kidney_failure": "Below 15 mL/min/1.73m2"
+      },
+      "serum_potassium": {
+        "normal": "3.5 to 5.0 mEq/L (or mmol/L)",
+        "critical": "Below 3.0 mEq/L or Above 6.0 mEq/L (urgent evaluation)"
+      }
+    },
+    "biological_mechanism": "Creatinine is an end-product of muscle creatine breakdown, produced at a constant rate and filtered by renal glomeruli with minimal tubular reabsorption. eGFR is calculated from serum creatinine, age, and sex using the CKD-EPI equation. Dehydration and intense muscle breakdown can falsely elevate creatinine without intrinsic renal damage.",
+    "clinical_significance": "A single elevated creatinine or mildly decreased eGFR requires confirmation with repeated testing and urine albumin-to-creatinine ratio (uACR) before chronic kidney disease can be staged.",
+    "lifestyle_and_interventions": "Maintain adequate oral hydration. Avoid nephrotoxic agents (excessive NSAIDs like ibuprofen/naproxen). Manage blood pressure and blood glucose within tight physiological targets.",
+    "monitoring_guidelines": "Patients with stable eGFR >60 mL/min/1.73m2 typically need annual monitoring; eGFR <60 requires semi-annual or quarterly surveillance.",
+    "suggested_questions": [
+      "Could my creatinine reading have been affected by hydration or physical exercise?",
+      "Should we test urine albumin (uACR) to check for early glomerular leakage?",
+      "Are any of my current medications or pain relievers taxing to my kidneys?"
+    ]
+  },
+  {
+    "id": "acg_liver_biochemistry",
+    "title": "ACG Clinical Guideline: Evaluation of Abnormal Liver Chemistries",
+    "organization": "American College of Gastroenterology (ACG)",
+    "canonical_tests": ["alt", "ast", "alp", "bili", "albumin"],
+    "keywords": ["alt", "ast", "sgpt", "sgot", "liver", "hepatic", "enzymes", "transaminases", "bilirubin", "fatty liver", "steatohepatitis"],
+    "diagnostic_criteria": {
+      "alt_alanine_aminotransferase": {
+        "normal_female": "7 to 35 U/L (some guidelines suggest < 25 U/L)",
+        "normal_male": "10 to 40 U/L (some guidelines suggest < 33 U/L)",
+        "mild_elevation": "Up to 2 to 3 times upper limit of normal",
+        "severe_elevation": "Greater than 1000 U/L (acute hepatitis or toxic injury)"
+      },
+      "ast_aspartate_aminotransferase": {
+        "normal": "10 to 40 U/L"
+      },
+      "de_ritis_ratio_ast_alt": {
+        "ast_alt_under_1": "Commonly seen in metabolic dysfunction-associated steatotic liver disease (MASLD / NAFLD) or chronic viral hepatitis",
+        "ast_alt_over_2": "Highly suggestive of alcoholic liver injury or advanced cirrhosis"
+      }
+    },
+    "biological_mechanism": "ALT is predominantly localized to hepatocytes, making it a sensitive indicator of hepatocellular injury. AST is present in liver, cardiac muscle, skeletal muscle, kidneys, and brain. In early hepatocellular injury from insulin resistance or lipid deposition (hepatic steatosis), ALT typically exceeds AST.",
+    "clinical_significance": "Isolated mild elevations in transaminases are frequently secondary to metabolic syndrome, recent alcohol consumption, vigorous exercise, or medication effects (e.g. acetaminophen, statins, herbal supplements).",
+    "lifestyle_and_interventions": "Weight loss (5-10%), cessation of alcohol, discontinuation of non-essential hepatotoxic supplements, and optimization of glycemic control.",
+    "monitoring_guidelines": "Repeat liver enzymes in 4 to 8 weeks after addressing reversible lifestyle and medication factors.",
+    "suggested_questions": [
+      "Do my liver enzymes suggest metabolic steatotic liver changes (fatty liver)?",
+      "Should we review my over-the-counter medications, vitamins, and supplements?",
+      "Would an abdominal ultrasound be helpful to evaluate liver texture?"
+    ]
+  },
+  {
+    "id": "endocrine_society_vitamin_d",
+    "title": "Endocrine Society Clinical Practice Guideline: Vitamin D Deficiency",
+    "organization": "The Endocrine Society",
+    "canonical_tests": ["vitd", "calcium", "pth"],
+    "keywords": ["vitamin d", "vit d", "25-hydroxy", "25(oh)d", "calcidiol", "bone", "fatigue", "calcium"],
+    "diagnostic_criteria": {
+      "serum_25_hydroxyvitamin_d": {
+        "deficiency": "Below 20 ng/mL (< 50 nmol/L)",
+        "insufficiency": "20 to 29 ng/mL (50 to 74 nmol/L)",
+        "sufficiency": "30 to 100 ng/mL (75 to 250 nmol/L)",
+        "toxicity_risk": "Above 100 ng/mL (potential hypercalcemia)"
+      }
+    },
+    "biological_mechanism": "25-Hydroxyvitamin D [25(OH)D] is the principal circulating storage form of vitamin D, synthesized in the liver from cutaneous synthesis (sunlight UVB) and dietary intake (cholecalciferol). Low levels impair intestinal calcium absorption, triggering compensatory parathyroid hormone (PTH) secretion that resorbs calcium from skeletal bone.",
+    "clinical_significance": "Deficiency (<20 ng/mL) is associated with reduced bone mineral density, osteomalacia, muscle weakness, and non-specific fatigue. Seasonal variation, indoor occupations, melanin pigmentation, and sunscreen use heavily reduce synthesis.",
+    "lifestyle_and_interventions": "Oral vitamin D3 (cholecalciferol) repletion under physician guidance (typically 50,000 IU weekly for 6-8 weeks for deficiency, or daily maintenance of 1,000-2,000 IU). Safe sun exposure and dietary fortification.",
+    "monitoring_guidelines": "Recheck serum 25(OH)D levels 3 months after initiating therapeutic supplementation to confirm adequacy and avoid toxicity.",
+    "suggested_questions": [
+      "Given my vitamin D level of 17 ng/mL, what dosage of vitamin D3 supplementation do you recommend?",
+      "Should we check my serum calcium and PTH levels?",
+      "When should we schedule a follow-up test to ensure levels have normalized?"
+    ]
+  },
+  {
+    "id": "who_hematology_cbc_anemia",
+    "title": "WHO & ASH Guidelines on Anemia and Complete Blood Count Interpretation",
+    "organization": "World Health Organization & American Society of Hematology (ASH)",
+    "canonical_tests": ["hb", "hct", "wbc", "plt", "mcv"],
+    "keywords": ["haemoglobin", "hemoglobin", "hematocrit", "wbc", "platelets", "mcv", "anemia", "blood count", "rbc"],
+    "diagnostic_criteria": {
+      "hemoglobin_cutoffs": {
+        "men": "Below 13.0 g/dL (130 g/L) defines anemia",
+        "women_non_pregnant": "Below 12.0 g/dL (120 g/L) defines anemia",
+        "pregnant_women": "Below 11.0 g/dL (110 g/L) defines anemia"
+      },
+      "mean_corpuscular_volume_mcv": {
+        "microcytic": "Below 80 fL (Iron deficiency, Thalassemia trait, Lead poisoning)",
+        "normocytic": "80 to 100 fL (Anemia of chronic disease, acute blood loss, hemolysis)",
+        "macrocytic": "Above 100 fL (Vitamin B12/folate deficiency, alcohol, thyroid, liver disease)"
+      },
+      "white_blood_cells": {
+        "normal": "4.0 to 11.0 x10^3/uL",
+        "leukocytosis": "Above 11.0 x10^3/uL (infection, inflammation, acute stress)",
+        "leukopenia": "Below 4.0 x10^3/uL (viral infection, bone marrow suppression, medications)"
+      },
+      "platelets": {
+        "normal": "150 to 410 x10^3/uL",
+        "thrombocytopenia": "Below 150 x10^3/uL",
+        "thrombocytosis": "Above 450 x10^3/uL"
+      }
+    },
+    "biological_mechanism": "Hemoglobin transports oxygen to tissues. Erythropoiesis occurs in the bone marrow regulated by renal erythropoietin. Dehydration falsely raises hemoglobin and hematocrit via hemoconcentration; fluid overload causes dilutional pseudoanemia.",
+    "clinical_significance": "When hemoglobin is normal, hematocrit typically tracks at approximately 3 times the hemoglobin value (rule of three). Isolated minor fluctuations within reference bounds rarely indicate disease.",
+    "lifestyle_and_interventions": "Dietary iron, vitamin B12, and folate intake. Investigation of occult blood loss if anemia is detected.",
+    "monitoring_guidelines": "Complete blood counts should be repeated after corrective therapy or during regular periodic physical exams.",
+    "suggested_questions": [
+      "Are all red and white cell lines balanced and within reference limits?",
+      "Does my hematocrit indicate adequate hydration at the time of the blood draw?",
+      "Is any follow-up blood count needed?"
+    ]
+  },
+  {
+    "id": "harmonized_metabolic_syndrome",
+    "title": "Joint Harmonized Criteria: Metabolic Syndrome and Cardiovascular Risk",
+    "organization": "IDF, NHLBI, AHA, WHF, IAS, and IASO Joint Scientific Statement",
+    "canonical_tests": ["glucose", "hba1c", "tg", "hdl"],
+    "keywords": ["metabolic syndrome", "insulin resistance", "dyslipidemia", "triglycerides", "hdl", "fasting glucose"],
+    "diagnostic_criteria": {
+      "criteria_summary": "Diagnosis requires any 3 of the following 5 components: 1) Elevated waist circumference; 2) Elevated triglycerides (>= 150 mg/dL); 3) Reduced HDL cholesterol (< 40 mg/dL in men, < 50 mg/dL in women); 4) Elevated blood pressure (>= 130/85 mmHg); 5) Elevated fasting glucose (>= 100 mg/dL)."
+    },
+    "biological_mechanism": "Insulin resistance in adipose and muscle tissue drives increased free fatty acid flux to the liver, stimulating hepatic triglyceride overproduction, raising VLDL, accelerating HDL degradation, and impairing fasting glucose regulation.",
+    "clinical_significance": "Having 3 or more criteria multiplies the 10-year risk of developing type 2 diabetes by 5-fold and cardiovascular disease by 2-fold.",
+    "lifestyle_and_interventions": "Lifestyle modification is the primary therapy: caloric reduction, substitution of refined carbs with high-fiber whole foods and healthy fats, resistance and aerobic training.",
+    "monitoring_guidelines": "Monitor fasting glucose, lipid panel, and blood pressure every 6 to 12 months.",
+    "suggested_questions": [
+      "With elevated glucose (112), triglycerides (178), and low HDL (38), do I meet criteria for metabolic syndrome?",
+      "What is the best exercise and dietary strategy to improve my insulin sensitivity?",
+      "Should we schedule follow-up blood work in 3 to 6 months?"
+    ]
+  },
+  {
+    "id": "thyroid_evaluation_guidelines",
+    "title": "ATA Guidelines on Thyroid Function Tests and Subclinical Thyroid Disease",
+    "organization": "American Thyroid Association (ATA)",
+    "canonical_tests": ["tsh", "ft4", "ft3"],
+    "keywords": ["thyroid", "tsh", "ft4", "ft3", "hypothyroidism", "hyperthyroidism", "metabolism"],
+    "diagnostic_criteria": {
+      "tsh": {
+        "normal": "0.4 to 4.0 uIU/mL",
+        "subclinical_hypothyroidism": "TSH elevated (e.g. 4.1 to 10.0 uIU/mL) with normal Free T4",
+        "overt_hypothyroidism": "TSH elevated with low Free T4",
+        "hyperthyroidism": "TSH suppressed (< 0.1 uIU/mL) with elevated FT4/FT3"
+      }
+    },
+    "biological_mechanism": "TSH is released by the anterior pituitary gland to stimulate thyroid hormone production. Because of negative feedback loop mechanics, small changes in Free T4 result in exponential reciprocal changes in TSH.",
+    "clinical_significance": "Thyroid dysfunction frequently alters lipid metabolism (hypothyroidism increases LDL and Total Cholesterol) and causes fatigue, temperature intolerance, and weight fluctuations.",
+    "lifestyle_and_interventions": "Levothyroxine replacement therapy for overt hypothyroidism or subclinical with high TSH/antibodies or pregnancy. Regular sleep, iodine adequacy.",
+    "monitoring_guidelines": "Retest TSH in 6-8 weeks following dosage adjustment or annually if stable.",
+    "suggested_questions": [
+      "Is my thyroid function contributing to my lipid or metabolic numbers?",
+      "Should Free T4 or thyroid antibodies (anti-TPO) be evaluated?"
+    ]
+  }
+]

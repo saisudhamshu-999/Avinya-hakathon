@@ -1,0 +1,30 @@
+[
+  {
+    "id": "metabolic_glucose",
+    "title": "Fasting glucose and HbA1c",
+    "body": "Fasting glucose and HbA1c both reflect blood sugar control over different time scales. Fasting glucose measures the morning level, while HbA1c reflects average sugar exposure over approximately 90 days. When both sit above laboratory reference bounds, clinicians typically evaluate dietary patterns, lifestyle factors, medication history, and family risk.",
+    "involves": ["glucose", "hba1c"],
+    "prompt": "How do my fasting glucose and HbA1c results relate to each other?"
+  },
+  {
+    "id": "kidney_filtration",
+    "title": "Creatinine and eGFR relationship",
+    "body": "Serum creatinine and eGFR are paired markers for renal filtration capacity. Creatinine is a metabolic byproduct filtered by kidneys; eGFR is calculated from creatinine, age, and biological sex. When creatinine increases, eGFR typically drops. Clinicians evaluate hydration status, acute illness, and nephrotoxic medications before drawing conclusions.",
+    "involves": ["creat", "egfr"],
+    "prompt": "Was my hydration adequate when this kidney panel was drawn?"
+  },
+  {
+    "id": "lipid_atherogenic",
+    "title": "Lipid particle balance (Total, LDL, Triglycerides)",
+    "body": "Cholesterol and triglycerides circulate together in lipoproteins. High LDL with elevated triglycerides often represents combined lipid elevation that clinicians evaluate alongside blood pressure, smoking status, and cardiovascular risk scores.",
+    "involves": ["chol", "ldl", "tg"],
+    "prompt": "What lifestyle or dietary modifications are recommended before considering medical therapy?"
+  },
+  {
+    "id": "liver_enzymes",
+    "title": "ALT and AST hepatic enzyme elevation",
+    "body": "Alanine aminotransferase (ALT) and Aspartate aminotransferase (AST) reside inside liver and muscle cells. Mild elevations commonly occur with recent viral infections, vigorous exertion, alcohol intake, non-alcoholic fatty liver changes, or various prescription and OTC medications (such as acetaminophen or statins).",
+    "involves": ["alt", "ast"],
+    "prompt": "Could any current medications, supplements, or recent illness explain these enzyme numbers?"
+  }
+]

@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: readout-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: readout_db
+      POSTGRES_USER: readout_user
+      POSTGRES_PASSWORD: readout_secure_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U readout_user -d readout_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: readout-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://readout_user:readout_secure_password@postgres:5432/readout_db
+      JWT_SECRET: super_secure_dev_jwt_secret_key_32bytes_long!
+      ENVIRONMENT: development
+      OCR_ENGINE: tesseract
+      UPLOAD_DIRECTORY: /app/uploads
+      MAX_UPLOAD_SIZE: 20971520
+    ports:
+      - "8000:8000"
+    volumes:
+      - uploads_data:/app/uploads
+      - processed_data:/app/processed
+
+  frontend:
+    image: node:22-alpine
+    container_name: readout-frontend
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "8080:3000"
+    command: sh -c "npm install && node server.js"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  uploads_data:
+  processed_data:

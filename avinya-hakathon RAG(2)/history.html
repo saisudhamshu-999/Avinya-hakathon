@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>History — Readout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+  <div data-rail></div>
+  <div class="canvas">
+    <main class="page" id="main">
+
+      <div class="page-head">
+        <h1>History</h1>
+        <p>Reports you have opened on this device. One reading rarely says much on its own; the direction across several says more, and is the part clinicians usually want to see.</p>
+      </div>
+
+      <div class="dash-grid">
+        <div class="stack">
+          <section class="card" aria-labelledby="tl-h">
+            <div class="card-head">
+              <h2 id="tl-h">Reports on this device</h2>
+              <span class="card-sub" data-count></span>
+            </div>
+            <div class="timeline" data-timeline></div>
+          </section>
+
+          <section class="card" aria-labelledby="tr-h">
+            <div class="card-head">
+              <h2 id="tr-h">One test over time</h2>
+            </div>
+            <div class="row" style="margin-bottom:18px">
+              <label class="sr-only" for="pick">Choose a test</label>
+              <select id="pick" style="max-width:280px"></select>
+              <span class="chip chip--plain" data-latest></span>
+            </div>
+            <div data-chart></div>
+            <p class="card-sub" style="margin-top:16px;max-width:64ch" data-chart-note></p>
+          </section>
+
+          <section class="card" id="compare-section" aria-labelledby="cmp-h">
+            <div class="card-head">
+              <div>
+                <h2 id="cmp-h">Compare two reports</h2>
+                <p class="card-sub">Identify longitudinal shifts, newly out-of-range markers, and stabilizing trends.</p>
+              </div>
+            </div>
+            <div class="row" style="gap:12px;margin-bottom:14px;flex-wrap:wrap">
+              <div style="flex:1;min-width:180px">
+                <label style="font-size:12px;font-weight:600;display:block;margin-bottom:4px">Baseline report</label>
+                <select id="cmp-a" style="width:100%"></select>
+              </div>
+              <div style="flex:1;min-width:180px">
+                <label style="font-size:12px;font-weight:600;display:block;margin-bottom:4px">Comparison report</label>
+                <select id="cmp-b" style="width:100%"></select>
+              </div>
+              <div style="align-self:flex-end">
+                <button class="btn btn-secondary btn-sm" type="button" id="run-cmp">Compare</button>
+              </div>
+            </div>
+            <div id="cmp-results" style="background:var(--surface-sunk);padding:14px;border-radius:var(--r-md);border:1px solid var(--line)">
+              <!-- Comparison table rendered dynamically -->
+            </div>
+          </section>
+        </div>
+
+        <aside class="dash-side">
+          <section class="card">
+            <div class="card-head"><h3>How history is stored</h3></div>
+            <p class="card-sub">Past reports live in this browser's storage on this device. They are not synced, backed up, or visible to anyone else — which also means clearing your browser data removes them.</p>
+            <div style="margin-top:16px;display:flex;flex-direction:column;gap:10px">
+              <a class="btn btn-secondary btn-sm btn-block" href="settings.html">Storage settings</a>
+              <button class="btn btn-quiet btn-sm btn-block" type="button" id="wipe">Erase history</button>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-head"><h3>Comparing across labs</h3></div>
+            <p class="card-sub">Two of these reports came from different laboratories. Different labs use different equipment and print different reference ranges, so a value can move between reports without anything having changed in you. Say so if you show a clinician the trend.</p>
+          </section>
+        </aside>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+mountShell("history");
+
+$("[data-count]").textContent = `${HISTORY.length} reports`;
+
+$("[data-timeline]").innerHTML = HISTORY.map((h) => `
+  <div class="tl-item" data-status="${h.flags ? "out" : "in"}">
+    <a class="tl-card" href="dashboard.html">
+      <div>
+        <div class="when">${esc(prettyDate(h.date))}${h.current ? " · most recent" : ""}</div>
+        <div class="what">${esc(h.label)} — ${esc(h.lab)}</div>
+      </div>
+      <span class="chip chip--${h.flags ? "out" : "in"}">${h.flags ? pluralise(h.flags, "flag", "flags") : "nothing flagged"}</span>
+      <span class="go">${ICON.arrow}</span>
+    </a>
+  </div>`).join("");
+
+/* trend explorer */
+const pick = $("#pick");
+Object.keys(TRENDS).forEach((id) => {
+  const p = PARAMETERS.find((x) => x.id === id);
+  pick.appendChild(el(`<option value="${id}">${esc(p.name)}</option>`));
+});
+
+function drawTrend() {
+  const p = PARAMETERS.find((x) => x.id === pick.value);
+  const series = TRENDS[pick.value];
+  const v = view(p);
+  const st = statusOf(p);
+
+  $("[data-latest]").className = `chip chip--${st}`;
+  $("[data-latest]").textContent = `latest ${fmt(v.value, v.dp)} ${v.unit} · ${STATUS_WORD[st].toLowerCase()}`;
+
+  const W = 640, H = 210, L = 46, R = 14, T = 16, B = 30;
+  const conv = (n) => (Prefs.units() === "si" && SI[p.id]) ? +(n * SI[p.id].f).toFixed(SI[p.id].dp) : n;
+  const vals = series.map(conv);
+  const dom = plotDomain(vals, v.low, v.high);
+  const ymin = dom.min, ymax = dom.max;
+  const x = (i) => L + (i / (vals.length - 1)) * (W - L - R);
+  const y = (n) => T + (1 - (n - ymin) / (ymax - ymin)) * (H - T - B);
+  const cl = (n) => Math.max(T, Math.min(H - B, n));
+  const BW = W - L - R;
+
+  const band = (v.low != null && v.high != null)
+    ? `<rect class="trend-band" x="${L}" y="${cl(y(v.high)).toFixed(1)}" width="${BW}" height="${Math.max(2, cl(y(v.low)) - cl(y(v.high))).toFixed(1)}"/>`
+    : v.high != null
+      ? `<rect class="trend-band" x="${L}" y="${cl(y(v.high)).toFixed(1)}" width="${BW}" height="${Math.max(2, (H - B) - cl(y(v.high))).toFixed(1)}"/>`
+      : v.low != null
+        ? `<rect class="trend-band" x="${L}" y="${T}" width="${BW}" height="${Math.max(2, cl(y(v.low)) - T).toFixed(1)}"/>`
+        : "";
+
+  const path = vals.map((n, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(n).toFixed(1)}`).join(" ");
+  const dots = vals.map((n, i) => {
+    const out = (v.high != null && n > v.high) || (v.low != null && n < v.low);
+    return `<g><circle class="trend-point${out ? " trend-point--out" : ""}" cx="${x(i).toFixed(1)}" cy="${y(n).toFixed(1)}" r="4.5"/>
+      <text class="trend-text" x="${x(i).toFixed(1)}" y="${(y(n) - 12).toFixed(1)}" text-anchor="middle">${n}</text></g>`;
+  }).join("");
+  const labels = TREND_DATES.map((d, i) =>
+    `<text class="trend-text" x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${esc(d)}</text>`).join("");
+  const yTicks = [ymin, (ymin + ymax) / 2, ymax].map((n) =>
+    `<text class="trend-text" x="${L - 8}" y="${(y(n) + 3).toFixed(1)}" text-anchor="end">${n.toFixed(v.dp)}</text>`).join("");
+
+  $("[data-chart]").innerHTML = `<svg class="trend-chart" viewBox="0 0 ${W} ${H}" role="img"
+    aria-label="${esc(p.name)} across four reports: ${vals.join(", ")} ${esc(v.unit)}">
+    ${band}
+    <line class="trend-axis" x1="${L}" y1="${H - B}" x2="${W - R}" y2="${H - B}"/>
+    <line class="trend-axis" x1="${L}" y1="${T}" x2="${L}" y2="${H - B}"/>
+    ${yTicks}<path class="trend-line" d="${path}"/>${dots}${labels}
+  </svg>`;
+
+  const first = vals[0], last = vals[vals.length - 1];
+  const dir = last > first ? "risen" : last < first ? "fallen" : "stayed level";
+  $("[data-chart-note]").textContent =
+    `Across these four reports the value has ${dir} from ${first} to ${last} ${v.unit}. ` +
+    `The shaded band is the range printed on the most recent report. Earlier reports may have used different ranges, ` +
+    `and a trend line is not a prediction — it only describes what has already been measured.`;
+}
+pick.addEventListener("change", drawTrend);
+drawTrend();
+
+/* ---------- report comparison ---------- */
+const cmpA = $("#cmp-a");
+const cmpB = $("#cmp-b");
+const cmpResults = $("#cmp-results");
+
+HISTORY.forEach((h, idx) => {
+  cmpA.appendChild(el(`<option value="${h.id}" ${idx === 1 ? "selected" : ""}>${esc(prettyDate(h.date))} (${esc(h.label)})</option>`));
+  cmpB.appendChild(el(`<option value="${h.id}" ${idx === 0 ? "selected" : ""}>${esc(prettyDate(h.date))} (${esc(h.label)})</option>`));
+});
+
+async function runComparison() {
+  cmpResults.innerHTML = `<div style="text-align:center;padding:12px;color:var(--ink-3)">Comparing reports...</div>`;
+  try {
+    const res = await API.compareReports(cmpA.value, cmpB.value);
+    const rawList = res.data.comparisons || res.data.deltas || [];
+    const deltas = rawList.map(item => ({
+      name: item.name || item.test,
+      val_a: item.val_a != null ? item.val_a : item.prevValue,
+      val_b: item.val_b != null ? item.val_b : item.curValue,
+      unit: item.unit || "",
+      change: item.change || (item.shift != null ? `${item.shift > 0 ? '+' : ''}${item.shift} ${item.unit || ''} (${item.percent_change > 0 ? '+' : ''}${item.percent_change}%)` : ""),
+      isUp: item.shift ? item.shift > 0 : String(item.change).startsWith("+"),
+      isDown: item.shift ? item.shift < 0 : String(item.change).startsWith("-"),
+      status: item.status_b || item.status || "WITHIN_RANGE"
+    }));
+
+    if (!deltas.length) {
+      cmpResults.innerHTML = `<p style="font-size:var(--t-sm);margin:0;color:var(--ink-3)">No matching laboratory parameters between selected reports.</p>`;
+      return;
+    }
+
+    cmpResults.innerHTML = `
+      ${res.data.rangeDriftWarning ? `<div style="background:var(--surface);padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:12px;color:var(--ink-2);border-left:3px solid var(--pine)">${esc(res.data.rangeDriftWarning)}</div>` : ""}
+      <table style="width:100%;font-size:12.5px;border-collapse:collapse">
+        <thead>
+          <tr style="text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)">
+            <th style="padding:6px 8px">Parameter</th>
+            <th style="padding:6px 8px">Baseline</th>
+            <th style="padding:6px 8px">Comparison</th>
+            <th style="padding:6px 8px">Change</th>
+            <th style="padding:6px 8px">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${deltas.map(d => {
+            const isOut = d.status.toLowerCase().includes("out") || d.status.toLowerCase().includes("above") || d.status.toLowerCase().includes("below");
+            return `
+              <tr style="border-bottom:1px solid rgba(0,0,0,0.04)">
+                <td style="padding:8px"><strong>${esc(d.name)}</strong></td>
+                <td style="padding:8px" class="num">${d.val_a} ${esc(d.unit)}</td>
+                <td style="padding:8px" class="num">${d.val_b} ${esc(d.unit)}</td>
+                <td style="padding:8px" class="num">
+                  <span style="color:${d.isUp ? 'var(--clay)' : d.isDown ? 'var(--pine)' : 'inherit'};font-weight:600">
+                    ${esc(d.change)}
+                  </span>
+                </td>
+                <td style="padding:8px">
+                  <span class="chip chip--${isOut ? 'out' : 'in'}" style="font-size:10.5px">
+                    ${esc(d.status.replace(/_/g, ' '))}
+                  </span>
+                </td>
+              </tr>
+            `;
+          }).join("")}
+        </tbody>
+      </table>
+      <div style="margin-top:12px;font-size:11.5px;color:var(--ink-3)">
+        Note: Differences across dates may reflect biological variation, lifestyle changes, fasting status, or analytical variation between laboratories.
+      </div>
+    `;
+  } catch (err) {
+    cmpResults.innerHTML = `<p style="font-size:var(--t-sm);color:var(--clay)">Failed to load comparison data from server.</p>`;
+  }
+}
+
+$("#run-cmp").addEventListener("click", runComparison);
+runComparison();
+
+$("#wipe").addEventListener("click", () => {
+  const box = el(`<div>
+    <h2>Erase history on this device?</h2>
+    <p class="card-sub" style="margin:10px 0 20px">This removes saved reports, your summary draft and your questions from this browser. It cannot be undone, and it does not affect the original report from your lab.</p>
+    <div class="row"><button class="btn btn-secondary btn-sm" type="button" data-close>Keep history</button>
+    <button class="btn btn-primary btn-sm row-end" type="button" id="confirm-wipe">Erase everything</button></div>
+  </div>`);
+  const close = openModal(box);
+  $("#confirm-wipe", box).addEventListener("click", () => { Store.clearAll(); close(); toast("History erased"); setTimeout(() => location.reload(), 700); });
+});
+</script>
+</body>
+</html>

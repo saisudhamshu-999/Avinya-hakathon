@@ -1,0 +1,18 @@
+{
+  "hb": { "name": "Haemoglobin", "abbr": "Hb", "group": "Blood count", "low": 12.0, "high": 15.5, "unit": "g/dL", "si_unit": "g/L", "si_factor": 10 },
+  "hct": { "name": "Haematocrit", "abbr": "HCT", "group": "Blood count", "low": 36.0, "high": 46.0, "unit": "%", "si_unit": "L/L", "si_factor": 0.01 },
+  "wbc": { "name": "White blood cell count", "abbr": "WBC", "group": "Blood count", "low": 4.0, "high": 11.0, "unit": "×10³/µL", "si_unit": "×10⁹/L", "si_factor": 1 },
+  "plt": { "name": "Platelet count", "abbr": "PLT", "group": "Blood count", "low": 150, "high": 410, "unit": "×10³/µL", "si_unit": "×10⁹/L", "si_factor": 1 },
+  "glucose": { "name": "Fasting blood glucose", "abbr": "FBS", "group": "Blood sugar", "low": 70, "high": 99, "unit": "mg/dL", "si_unit": "mmol/L", "si_factor": 0.0555 },
+  "hba1c": { "name": "Glycated haemoglobin", "abbr": "HbA1c", "group": "Blood sugar", "low": 4.0, "high": 5.6, "unit": "%", "si_unit": "mmol/mol", "si_factor": 1 },
+  "chol": { "name": "Total cholesterol", "abbr": "CHOL", "group": "Lipid panel", "low": null, "high": 200, "unit": "mg/dL", "si_unit": "mmol/L", "si_factor": 0.0259 },
+  "ldl": { "name": "LDL cholesterol", "abbr": "LDL-C", "group": "Lipid panel", "low": null, "high": 100, "unit": "mg/dL", "si_unit": "mmol/L", "si_factor": 0.0259 },
+  "hdl": { "name": "HDL cholesterol", "abbr": "HDL-C", "group": "Lipid panel", "low": 40, "high": null, "unit": "mg/dL", "si_unit": "mmol/L", "si_factor": 0.0259 },
+  "tg": { "name": "Triglycerides", "abbr": "TG", "group": "Lipid panel", "low": null, "high": 150, "unit": "mg/dL", "si_unit": "mmol/L", "si_factor": 0.0113 },
+  "creat": { "name": "Serum creatinine", "abbr": "CREAT", "group": "Kidney function", "low": 0.5, "high": 1.1, "unit": "mg/dL", "si_unit": "µmol/L", "si_factor": 88.4 },
+  "egfr": { "name": "Estimated GFR", "abbr": "eGFR", "group": "Kidney function", "low": 60, "high": null, "unit": "mL/min/1.73m²", "si_unit": "mL/min/1.73m²", "si_factor": 1 },
+  "alt": { "name": "Alanine aminotransferase (ALT/SGPT)", "abbr": "ALT", "group": "Liver panel", "low": 7, "high": 40, "unit": "U/L", "si_unit": "U/L", "si_factor": 1 },
+  "ast": { "name": "Aspartate aminotransferase (AST/SGOT)", "abbr": "AST", "group": "Liver panel", "low": 10, "high": 40, "unit": "U/L", "si_unit": "U/L", "si_factor": 1 },
+  "tsh": { "name": "Thyroid stimulating hormone", "abbr": "TSH", "group": "Thyroid", "low": 0.4, "high": 4.0, "unit": "µIU/mL", "si_unit": "mIU/L", "si_factor": 1 },
+  "vitd": { "name": "25-Hydroxyvitamin D", "abbr": "25(OH)D", "group": "Vitamins", "low": 30, "high": 100, "unit": "ng/mL", "si_unit": "nmol/L", "si_factor": 2.496 }
+}

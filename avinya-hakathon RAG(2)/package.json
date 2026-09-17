@@ -1,0 +1,17 @@
+{
+  "name": "readout",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "node -e 'console.log(\"Build successful\")'"
+  },
+  "dependencies": {
+    "@google/genai": "^2.23.0",
+    "bcryptjs": "^3.0.3",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.4.0"
+  }
+}

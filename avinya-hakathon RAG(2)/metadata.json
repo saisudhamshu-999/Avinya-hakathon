@@ -1,0 +1,6 @@
+{
+  "name": "Readout",
+  "description": "Readout turns the numbers on a laboratory report into plain language, flags values outside printed reference ranges, and features a zero-hallucination Hybrid RAG clinical intelligence engine.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

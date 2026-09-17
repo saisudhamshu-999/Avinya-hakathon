@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Help — Readout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+  <div data-rail></div>
+  <div class="canvas">
+    <main class="page page--narrow" id="main">
+
+      <div class="page-head">
+        <h1>Help</h1>
+        <p>How Readout decides what to flag, what the words mean, and where its job ends.</p>
+      </div>
+
+      <section class="card" id="worried" style="margin-bottom:22px">
+        <div class="card-head"><h2>If a result has frightened you</h2></div>
+        <div class="prose" style="color:var(--ink-2)">
+          <p>Readout does not rate how urgent anything is, and it cannot tell you whether a number is serious. That judgement depends on your symptoms, your history and your medicines, none of which appear on a lab report.</p>
+          <p>If you feel unwell right now, or something about how you feel is getting worse quickly, contact your local emergency number or go to an emergency department. Do not wait to finish reading a report.</p>
+          <p>If you feel fine and a number simply looks alarming on paper, the useful next step is a phone call to the practice that ordered the test. Ask for the result to be reviewed and say which value is worrying you. Most practices will tell you over the phone whether it needs an appointment this week or at the next routine one.</p>
+          <p>Reading further into a single number rarely helps and usually makes the night longer. One out-of-range result, on its own, is a common and often unremarkable thing.</p>
+        </div>
+      </section>
+
+      <section class="card" style="margin-bottom:22px">
+        <div class="card-head"><h2>Why a reference range is not a pass mark</h2></div>
+        <div class="prose" style="color:var(--ink-2)">
+          <p>The range printed next to your result usually describes the middle 95% of measurements taken from a group of people the laboratory considered healthy. That definition has two consequences people are rarely told.</p>
+          <p>First, roughly one in twenty healthy people will fall outside the range on any given test, purely by the way the range was drawn. On a panel of eighteen tests, at least one value landing outside its range is closer to normal than unusual.</p>
+          <p>Second, ranges are specific to the laboratory. Different machines, different methods and different comparison groups produce different ranges for the same test, which is why Readout only ever compares your value to the range printed on your own report — never to a general table.</p>
+          <p>A few tests are different again: LDL cholesterol and vitamin D, for instance, are printed against targets or thresholds that experts still disagree about, rather than against an observed range.</p>
+        </div>
+      </section>
+
+      <section class="card" style="margin-bottom:22px">
+        <div class="card-head"><h2>Common questions</h2></div>
+        <details class="faq-item">
+          <summary>How accurate is the text recognition?</summary>
+          <p>Good on clean PDFs, more variable on photographs. Readout shows every value it extracted, next to the range it matched, so you can check a few against the paper — start with anything flagged. If a value was read wrongly, re-upload a clearer image rather than correcting it by hand.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Why does it not tell me what my results mean?</summary>
+          <p>Because it cannot know. Interpretation needs your symptoms, your history, your medicines, your previous results and an examination. A tool reading one printed page has none of that, and a confident-sounding answer built on a single page would be worse than no answer at all.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I upload a report for a child or an elderly parent?</summary>
+          <p>Yes, with their agreement where they can give it. Reference ranges differ by age and sex, but Readout uses whatever the report printed, so age-specific ranges are handled correctly as long as the lab printed them. The summary page has a field naming who the report belongs to.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Does it work for tests that aren't blood tests?</summary>
+          <p>Partly. Anything printed as a name, a value, a unit and a range — urine chemistry, thyroid panels, vitamin assays — extracts the same way. Narrative reports such as imaging or histopathology are not numeric, and Readout does not attempt to summarise them.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is my report used to train anything?</summary>
+          <p>No. There is no upload, so there is nothing to collect. The explanation model runs locally in your browser, and no text from your report is sent anywhere.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What happens if a test has no printed range?</summary>
+          <p>It is listed with a grey marker and no comparison is made. Readout will not substitute a range from elsewhere, because a value judged against the wrong range is more misleading than a value left unjudged.</p>
+        </details>
+      </section>
+
+      <section class="card" style="margin-bottom:22px">
+        <div class="card-head"><h2>Words that appear on reports</h2></div>
+        <div data-glossary></div>
+      </section>
+
+      <section class="card" id="disclaimer">
+        <div class="card-head"><h2>Medical disclaimer</h2></div>
+        <div class="prose" style="color:var(--ink-2)">
+          <p>Readout is an explanatory aid for people reading their own laboratory results. It is not a medical device, it is not regulated as one, and it does not provide medical advice, diagnosis or treatment.</p>
+          <p>Flagging in Readout means one thing only: a value on the report fell outside the reference range printed beside it on that same report. No assessment of severity, urgency or cause is made or implied. The absence of a flag does not mean a result is normal, that the report is complete, or that no medical attention is needed.</p>
+          <p>Explanations describe what tests measure in general terms and are not statements about you. Do not start, stop or change any medicine, supplement, diet or treatment on the basis of anything Readout shows you. Always take your results to a qualified healthcare professional, and never delay seeking care because of something read here.</p>
+          <p>If you are experiencing a medical emergency, contact your local emergency services immediately.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+mountShell("help");
+$("[data-glossary]").innerHTML = GLOSSARY.map(([term, def]) => `
+  <details class="faq-item">
+    <summary>${esc(term)}</summary>
+    <p>${esc(def)}</p>
+  </details>`).join("");
+</script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Readout Medical Intelligence & Clinical Decision-Support API",
+    "description": "Comprehensive full-stack API for laboratory report OCR extraction, unit normalization, reference range evaluation, clinical pattern detection, AI decision support, and longitudinal trend analysis.",
+    "version": "2.0.0",
+    "contact": {
+      "name": "Readout Clinical Support",
+      "email": "clinical-support@readout.health"
+    }
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "Readout Active Server"
+    }
+  ],
+  "tags": [
+    { "name": "Health", "description": "System health and runtime status" },
+    { "name": "Auth", "description": "JWT authentication, user management, and session control" },
+    { "name": "Reports", "description": "Report upload, OCR processing pipeline, and extraction quality" },
+    { "name": "Results", "description": "Extracted laboratory test values, reference intervals, and manual verification" },
+    { "name": "Longitudinal", "description": "Timeline aggregation, multi-report trends, and comparison with drift detection" },
+    { "name": "Clinical Decision Support", "description": "Pattern recognition, condition assessment, and prediction with safety labels" },
+    { "name": "Medications", "description": "Educational drug reference, clinician options, and reference dosage queries" },
+    { "name": "Prescriptions", "description": "AI-generated preliminary drafts with mandatory clinician review safeguards" },
+    { "name": "Chat", "description": "Grounded medical chat with fact verification against uploaded laboratory reports" },
+    { "name": "Settings & Audit", "description": "Patient privacy preferences, unit conventions, and security audit logs" }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": ["Health"],
+        "summary": "System Health Check",
+        "description": "Returns operational status of the Readout API, OCR engine, and clinical decision support.",
+        "responses": {
+          "200": { "description": "Service is healthy and ready." }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Register Patient or Clinician",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string", "example": "patient@example.com" },
+                  "password": { "type": "string", "example": "SecurePass123!" },
+                  "fullName": { "type": "string", "example": "Ananya Sharma" }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Registration successful." } }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User Login",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string", "example": "demo@readout.health" },
+                  "password": { "type": "string", "example": "demopassword123" }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Login successful, returns JWT token." } }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Current User Profile",
+        "responses": { "200": { "description": "Authenticated user profile." } }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User Logout",
+        "responses": { "200": { "description": "Session ended." } }
+      }
+    },
+    "/reports/upload": {
+      "post": {
+        "tags": ["Reports"],
+        "summary": "Upload Laboratory Report",
+        "description": "Accepts PDF or image of medical report, runs OCR layout analysis, and extracts parameters.",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": { "type": "string", "format": "binary" },
+                  "fasting": { "type": "boolean", "default": true },
+                  "title": { "type": "string", "example": "Annual Comprehensive Health Panel" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Report accepted and queued for extraction." } }
+      }
+    },
+    "/reports": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "List All Reports",
+        "responses": { "200": { "description": "List of user reports." } }
+      }
+    },
+    "/reports/{id}": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "Get Report Details",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Report metadata and parameters." } }
+      },
+      "delete": {
+        "tags": ["Reports"],
+        "summary": "Delete Report",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Report deleted." } }
+      }
+    },
+    "/reports/{id}/status": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "Get Processing Status",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Processing status (UPLOADED, OCR, EXTRACTING, COMPLETED)." } }
+      }
+    },
+    "/reports/{id}/results": {
+      "get": {
+        "tags": ["Results"],
+        "summary": "Get Extracted Parameters",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Extracted parameters list." } }
+      }
+    },
+    "/reports/{id}/quality": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "Get Extraction Quality & OCR Confidence",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Confidence metrics." } }
+      }
+    },
+    "/results/{id}/verify": {
+      "put": {
+        "tags": ["Results"],
+        "summary": "Verify or Correct Result",
+        "description": "Allows patient or clinician to edit extracted test name, value, unit, or range with audit trail.",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "value": { "type": "number" },
+                  "unit": { "type": "string" },
+                  "low": { "type": "number" },
+                  "high": { "type": "number" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Result verified." } }
+      }
+    },
+    "/history": {
+      "get": {
+        "tags": ["Longitudinal"],
+        "summary": "Get Patient Report History",
+        "responses": { "200": { "description": "Historical reports list." } }
+      }
+    },
+    "/timeline": {
+      "get": {
+        "tags": ["Longitudinal"],
+        "summary": "Get Longitudinal Test Timeline",
+        "responses": { "200": { "description": "Multi-point timeline." } }
+      }
+    },
+    "/trends": {
+      "get": {
+        "tags": ["Longitudinal"],
+        "summary": "Calculate Statistical Trends",
+        "description": "Calculates trends: INCREASING, DECREASING, STABLE with delta percentages.",
+        "responses": { "200": { "description": "Computed trends." } }
+      }
+    },
+    "/comparison": {
+      "post": {
+        "tags": ["Longitudinal"],
+        "summary": "Compare Two Reports with Reference Range Drift",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reportIdA": { "type": "string" },
+                  "reportIdB": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Comparison delta." } }
+      }
+    },
+    "/analysis/patterns": {
+      "post": {
+        "tags": ["Clinical Decision Support"],
+        "summary": "Evaluate Co-Moving Test Patterns",
+        "responses": { "200": { "description": "Grouped metabolic and clinical patterns." } }
+      }
+    },
+    "/analysis/conditions": {
+      "post": {
+        "tags": ["Clinical Decision Support"],
+        "summary": "Condition Pattern Recognition (AI Clinical Assessment)",
+        "responses": {
+          "200": {
+            "description": "Condition assessment with label: 'AI CLINICAL ASSESSMENT — NOT A CONFIRMED DIAGNOSIS'."
+          }
+        }
+      }
+    },
+    "/diagnosis/analyze": {
+      "post": {
+        "tags": ["Clinical Decision Support"],
+        "summary": "Diagnostic Analysis Gating",
+        "responses": {
+          "200": {
+            "description": "Returns separated AI assessment, clinician review status, and confirmed diagnosis."
+          }
+        }
+      }
+    },
+    "/prediction/analyze": {
+      "post": {
+        "tags": ["Clinical Decision Support"],
+        "summary": "Predictive Risk Modeling",
+        "responses": {
+          "200": {
+            "description": "Returns risk estimate with label: 'AI RISK ESTIMATE — NOT A DIAGNOSIS'."
+          }
+        }
+      }
+    },
+    "/medications/{name}": {
+      "get": {
+        "tags": ["Medications"],
+        "summary": "Educational Medication Reference",
+        "parameters": [{ "name": "name", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Medication educational data with label: 'MEDICATION INFORMATION — FOR PROFESSIONAL REVIEW'."
+          }
+        }
+      }
+    },
+    "/medications/recommend": {
+      "post": {
+        "tags": ["Medications"],
+        "summary": "Clinician-Gated Medication Options",
+        "responses": { "200": { "description": "Guideline-concordant options for clinician evaluation." } }
+      }
+    },
+    "/medications/dose-info": {
+      "post": {
+        "tags": ["Medications"],
+        "summary": "Reference Dosage Information",
+        "responses": { "200": { "description": "Label: 'REFERENCE INFORMATION — NOT A PERSONALIZED PRESCRIPTION'." } }
+      }
+    },
+    "/prescriptions/draft": {
+      "post": {
+        "tags": ["Prescriptions"],
+        "summary": "AI Preliminary Prescription Draft",
+        "responses": {
+          "200": {
+            "description": "Label: 'AI-GENERATED DRAFT — NOT A VALID PRESCRIPTION — REQUIRES QUALIFIED HEALTHCARE PROFESSIONAL REVIEW AND SIGN-OFF'."
+          }
+        }
+      }
+    },
+    "/chat": {
+      "post": {
+        "tags": ["Chat"],
+        "summary": "Ask My Reports (Grounded Lab Chat)",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": { "type": "string", "example": "What was my fasting glucose reading?" }
+                },
+                "required": ["message"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Evidence-grounded response with source citations." } }
+      }
+    },
+    "/reports/{id}/summary": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "Doctor-Ready Appointment Summary",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Structured doctor summary." } }
+      }
+    },
+    "/reports/{id}/export": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "Export Report with PII Redaction",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "redact_pii", "in": "query", "schema": { "type": "boolean" } }
+        ],
+        "responses": { "200": { "description": "Exported JSON payload." } }
+      }
+    },
+    "/settings": {
+      "get": {
+        "tags": ["Settings & Audit"],
+        "summary": "Get System Settings",
+        "responses": { "200": { "description": "Settings payload." } }
+      },
+      "put": {
+        "tags": ["Settings & Audit"],
+        "summary": "Update System Settings",
+        "responses": { "200": { "description": "Updated settings." } }
+      }
+    },
+    "/audit": {
+      "get": {
+        "tags": ["Settings & Audit"],
+        "summary": "Get Security Audit Logs",
+        "responses": { "200": { "description": "Audit trail entries." } }
+      }
+    }
+  }
+}
